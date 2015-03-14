@@ -99,6 +99,10 @@ form {
   cursor: pointer;
 }
 
+.deleted {
+  display: none;
+}
+
 .item.completed {
   color: #C3C3C4;
 }

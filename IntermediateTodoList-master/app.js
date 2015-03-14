@@ -21,7 +21,7 @@ var loadRequest = $.ajax({
 loadRequest.done(function(dataFromServer) {
   var itemsData = dataFromServer.items
 
-//ADD NEW LIST ITEMS TO SERVER
+//ADD NEW LIST ITEMS TO PAGE
   itemsData.forEach(function(itemData) {
     addItemToPage(itemData)
   })
@@ -52,7 +52,7 @@ $('#list').on('click', '.complete-button', function(event) {
 
   var updateRequest = $.ajax({
     type: 'PUT',
-    url: "https://listalous.herokuapp.com/lists/YOUR-LIST-NAME-HERE/items/" + itemId,
+    url: "https://listalous.herokuapp.com/lists/mhmiller/items/" + itemId,
     data: { completed: !isItemCompleted }
   })
 
@@ -64,4 +64,21 @@ $('#list').on('click', '.complete-button', function(event) {
     }
   })
 })
+
+// LET USER REMOVE ITEM BY HITTING "X" OPTION
+$('#list').on('click', '.delete-button', function(event) {
+  var item = $(event.target).parent();
+  var isItemCompleted = item.hasClass('completed');
+  var itemId = item.attr('data-id');
+  console.log(item);
+  //removes from DOM
+  item.hide();
+  // delete from server
+  var updateRequest = $.ajax({
+    type: 'DELETE',
+    url: "https://listalous.herokuapp.com/lists/mhmiller/items/" + itemId,
+    data: { completed: !isItemCompleted }
+})
+})
+
 
